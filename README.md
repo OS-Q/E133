@@ -2,4 +2,4 @@
 
 [![sites](http://182.61.61.133/link/resources/SoC.png)](http://www.SoC.Xin)
 
-* V1.5.0
+* V1.6.1
