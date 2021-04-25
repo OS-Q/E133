@@ -1,0 +1,12 @@
+{
+  "name": "E15A",
+  "version": "1.6.1",
+  "description": "Standard peripheral library for ST STM8L15 microcontrollers",
+  "keywords": [
+    "framework",
+    "hal",
+    "stm8",
+    "st"
+  ],
+  "homepage": "https://www.st.com/en/embedded-software/stsw-stm8069.html"
+}
