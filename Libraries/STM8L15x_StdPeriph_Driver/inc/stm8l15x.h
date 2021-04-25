@@ -17,13 +17,13 @@
   *
   *        http://www.st.com/software_license_agreement_liberty_v2
   *
-  * Unless required by applicable law or agreed to in writing, software 
-  * distributed under the License is distributed on an "AS IS" BASIS, 
+  * Unless required by applicable law or agreed to in writing, software
+  * distributed under the License is distributed on an "AS IS" BASIS,
   * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
   * See the License for the specific language governing permissions and
   * limitations under the License.
   *
-  ******************************************************************************  
+  ******************************************************************************
   */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
@@ -51,7 +51,7 @@
         devices, you can define the device in your toolchain compiler preprocessor.
 
  - Low density STM8L15x devices are STM8L151C3, STM8L151K3, STM8L151G3, STM8L151F3,
-   STM8L151C2, STM8L151K2, STM8L151G2 and STM8L151F2 microcontrollers where the 
+   STM8L151C2, STM8L151K2, STM8L151G2 and STM8L151F2 microcontrollers where the
    Flash memory density ranges between 4 and 8 Kbytes.
  - Medium density STM8L15x devices are STM8L151C4, STM8L151C6, STM8L152C4,
    STM8L152C6, STM8L151K4, STM8L151K6, STM8L152K4, STM8L152K6, STM8L151G4,
@@ -61,16 +61,16 @@
   the Flash memory density is fixed and equal to 32 Kbytes and a wider range of
   peripheral than the medium density devices.
  - High density STM8L15x devices are STM8L151x8, STM8L152x8, STM8L162R8 and STM8L162M8
-   microcontrollers where the Flash memory density is fixed and equal to 64 Kbytes with 
+   microcontrollers where the Flash memory density is fixed and equal to 64 Kbytes with
    the same peripheral set than Medium Density Plus devices.
  - Value line low density STM8L05xx devices are STM8L051x3 microcontrollers
    with 8-KB Flash
- - Value line medium density STM8L05xx devices are STM8L052x6 microcontrollers 
+ - Value line medium density STM8L05xx devices are STM8L052x6 microcontrollers
    with 32-KB Flash
  - Value line high density STM8L05xx devices: STM8L052x8 microcontrollers
    with 64-KB Flash
- - Medium density STM8AL31xx/STM8AL3Lxx devices: STM8AL3168, STM8AL3166, 
-   STM8AL3148,STM8AL3146, STM8AL3138, STM8AL3136, STM8AL3L68, STM8AL3L66, 
+ - Medium density STM8AL31xx/STM8AL3Lxx devices: STM8AL3168, STM8AL3166,
+   STM8AL3148,STM8AL3146, STM8AL3138, STM8AL3136, STM8AL3L68, STM8AL3L66,
    STM8AL3L48, STM8AL3L46 microcontrollers with 8-KB, 16-KB or 32-KB Flash
  */
 
@@ -89,6 +89,11 @@
  #define _RAISONANCE_
 #elif defined(__ICCSTM8__)
  #define _IAR_
+#elif defined(__SDCC)                    /* SDCC patch: add compiler key */
+ #define _SDCC_
+ #define SDCC_VERSION (__SDCC_VERSION_MAJOR * 10000 \
+                     + __SDCC_VERSION_MINOR * 100 \
+                    + __SDCC_VERSION_PATCH)
 #else
  #error "Unsupported Compiler!"          /* Compiler defines not found */
 #endif
@@ -120,7 +125,7 @@
 /**
   * @brief Definition of Device on-chip RC oscillator frequencies
   */
-#if !defined  HSI_VALUE 
+#if !defined  HSI_VALUE
  #define HSI_VALUE   ((uint32_t)16000000) /*!< Typical Value of the HSI in Hz */
 #endif /* HSI_VALUE */
 
@@ -147,7 +152,7 @@
  #elif defined (STM8L15X_HD) || defined (STM8L05X_HD_VL)
    /*!< Used with memory Models for code higher than 64K */
   #define MEMCPY fmemcpy
- #endif /* STM8L15X_MD or STM8L15X_MDP or STM8L05X_MD_VL or STM8AL31_L_MD*/ 
+ #endif /* STM8L15X_MD or STM8L15X_MDP or STM8L05X_MD_VL or STM8AL31_L_MD*/
 #else /*_IAR_*/
  #define FAR  __far
  #define NEAR __near
@@ -186,15 +191,15 @@ defined (STM8L05X_LD_VL) || defined (STM8L05X_MD_VL) || defined (STM8AL31_L_MD)
  #else /*_IAR_*/
   #define IN_RAM(a) __ramfunc a
  #endif /* _COSMIC_ */
-#else 
+#else
   #define IN_RAM(a) a
 #endif /* RAM_EXECUTION */
 
 /*!< [31:16] STM8L15X Standard Peripheral Library main version */
-#define __STM8L15X_STDPERIPH_VERSION_MAIN   ((uint8_t)0x01) /*!< [31:24] main version */                                  
+#define __STM8L15X_STDPERIPH_VERSION_MAIN   ((uint8_t)0x01) /*!< [31:24] main version */
 #define __STM8L15X_STDPERIPH_VERSION_SUB1   ((uint8_t)0x06) /*!< [23:16] sub1 version */
 #define __STM8L15X_STDPERIPH_VERSION_SUB2   ((uint8_t)0x01) /*!< [15:8]  sub2 version */
-#define __STM8L15X_STDPERIPH_VERSION_RC     ((uint8_t)0x00) /*!< [7:0]  release candidate */ 
+#define __STM8L15X_STDPERIPH_VERSION_RC     ((uint8_t)0x00) /*!< [7:0]  release candidate */
 #define __STM8L15X_STDPERIPH_VERSION       ( (__STM8L15X_STDPERIPH_VERSION_MAIN << 24)\
                                           |(__STM8L15X_STDPERIPH_VERSION_SUB1 << 16)\
                                           |(__STM8L15X_STDPERIPH_VERSION_SUB2 << 8)\
@@ -2893,7 +2898,7 @@ AES_TypeDef;
 #define CFG                         ((CFG_TypeDef *) CFG_BASE)
 #define OPT                         ((OPT_TypeDef *) OPT_BASE)
 
-#ifdef USE_STDPERIPH_DRIVER 
+#ifdef USE_STDPERIPH_DRIVER
  #include "stm8l15x_conf.h"
 #endif
 
@@ -2954,7 +2959,7 @@ AES_TypeDef;
  __interrupt void (a)( void )
  #define INTERRUPT_HANDLER_TRAP(a) \
  _Pragma( VECTOR_ID( 1 ) ) \
- __interrupt void (a) (void)  
+ __interrupt void (a) (void)
 #endif /* _IAR_ */
 
 /*============================== Interrupt Handler declaration ========================*/
@@ -2963,7 +2968,7 @@ AES_TypeDef;
 #elif defined(_IAR_)
  #define INTERRUPT __interrupt
 #endif /* _COSMIC_ */
- 
+
 /*============================== Handling bits ====================================*/
 /*-----------------------------------------------------------------------------
 Method : I
