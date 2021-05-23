@@ -19,4 +19,15 @@ LICENSE*
 Readme.md
 *.html
 *.chm
+*.bmp
 stm8a*
+_htmresc
+*.txt
+README*
+*.chm
+*.bin
+*.out
+*.dep
+*.log
+*.ewt
+*.ewd
